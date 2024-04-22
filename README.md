@@ -8,10 +8,17 @@ Modularity: You can break up your templates into smaller components and link the
 CI/CD integration: Your ARM templates can be integrated into multiple CI/CD tools, like Azure DevOps and GitHub Actions. You can use these tools to version templates through source control and build release pipelines.
 Extensibility: With deployment scripts, you can run Bash or PowerShell scripts from within your ARM templates. These scripts perform tasks, like data plane operations, at deployment. Through extensibility, you can use a single ARM template to deploy a complete solution.
 
-Doenload the arm template and then cretae below 
+First set the subscription :
+az account set --subscription 2565ff8a-391c-4dbc-b5e6-36303da1943c
+
+
+Download the arm template and then cretae below 
 Bicep to create : 
 Decompile the json to bicep az bicep decompile --file main.json
 
 then run using:
-
 az deployment sub create  --template-file raw-resource-grp.bicep --parameters param-resource-grp.json --location eastus
+
+create APIM instance 
+
+az deployment group  create --template-file template.bicep --parameter parameters.json --resource-group  Test-resorce-grp --location eastus

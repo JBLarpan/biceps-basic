@@ -2,16 +2,60 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "rgName": {
-            "value": "Test-resource-grp"
+        "apimName": {
+            "value": "test-apps"
         },
-        "rgLocation": {
+        "location": {
             "value": "eastus"
         },
-        "tags": {
+        "tier": {
+            "value": "Developer"
+        },
+        "capacity": {
+            "value": "1"
+        },
+        "adminEmail": {
+            "value": "apss249@gmail.com"
+        },
+        "organizationName": {
+            "value": "apps"
+        },
+        "virtualNetworkType": {
+            "value": "External"
+        },
+        "tagsByResource": {
             "value": {
-                "How": "This is done by bicep"
+                "Des": "Managed by bicep"
             }
+        },
+        "vnet": {
+            "value": {}
+        },
+        "zones": {
+            "value": []
+        },
+        "customProperties": {
+            "value": {}
+        },
+        "identity": {
+            "value": {
+                "type": "None"
+            }
+        },
+        "appInsightsObject": {
+            "value": {
+                "id": null,
+                "name": null
+            }
+        },
+        "privateEndpoint": {
+            "value": {}
+        },
+        "privateDnsDeploymentName": {
+            "value": "PrivateDNS-1713589882609"
+        },
+        "subnetDeploymentName": {
+            "value": "UpdateSubnetDeployment-1713589882609"
         }
     }
 }

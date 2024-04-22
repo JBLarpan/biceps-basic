@@ -1,28 +1,79 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
-    "contentVersion": "1.0.0.1",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
     "parameters": {
-        "rgName": {
+        "apimName": {
             "type": "string"
         },
-        "rgLocation": {
+        "zones": {
+            "type": "array"
+        },
+        "location": {
             "type": "string"
         },
-        "tags": {
-            "type": "object",
-            "defaultValue": {}
+        "tier": {
+            "type": "string"
+        },
+        "capacity": {
+            "type": "string"
+        },
+        "adminEmail": {
+            "type": "string"
+        },
+        "organizationName": {
+            "type": "string"
+        },
+        "virtualNetworkType": {
+            "type": "string"
+        },
+        "tagsByResource": {
+            "type": "object"
+        },
+        "vnet": {
+            "type": "object"
+        },
+        "customProperties": {
+            "type": "object"
+        },
+        "identity": {
+            "type": "object"
+        },
+        "appInsightsObject": {
+            "type": "object"
+        },
+        "privateEndpoint": {
+            "type": "object"
+        },
+        "privateDnsDeploymentName": {
+            "type": "string"
+        },
+        "subnetDeploymentName": {
+            "type": "string"
         }
     },
-    "variables": {},
+    "variables": {
+        "apimNsgName": "[concat('apimnsg', uniqueString(resourceGroup().id), parameters('apimName'))]"
+    },
     "resources": [
         {
-            "type": "Microsoft.Resources/resourceGroups",
-            "apiVersion": "2018-05-01",
-            "location": "[parameters('rgLocation')]",
-            "name": "[parameters('rgName')]",
-            "properties": {},
-            "tags": "[parameters('tags')]"
+            "type": "Microsoft.ApiManagement/service",
+            "apiVersion": "2022-09-01-preview",
+            "name": "[parameters('apimName')]",
+            "location": "[parameters('location')]",
+            "sku": {
+                "name": "[parameters('tier')]",
+                "capacity": "[parameters('capacity')]"
+            },
+            "zones": "[parameters('zones')]",
+            "identity": "[parameters('identity')]",
+            "tags": "[parameters('tagsByResource')]",
+            "properties": {
+                "publisherEmail": "[parameters('adminEmail')]",
+                "publisherName": "[parameters('organizationName')]",
+                "customProperties": "[parameters('customProperties')]"
+            },
+            "resources": [],
+            "dependsOn": []
         }
-    ],
-    "outputs": {}
+    ]
 }
