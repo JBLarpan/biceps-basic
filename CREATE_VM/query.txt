@@ -1,0 +1,36 @@
+create VM. (Standard B2ats v2 (2 vcpus, 1 GiB memory) )
+Open port 4000	
+install graphql,node and appolo server from following link 
+
+https://www.apollographql.com/docs/apollo-server/getting-started/
+
+
+
+
+
+query GetCountry {
+  country(code: "BR") {
+    name
+    native
+    capital
+    emoji
+    currency
+    languages {
+      code
+      name
+    }
+  }
+}
+
+
+
+Ocp-Apim-Subscription-Key
+cf5e7b8466314d84a9c07a79b80764f7
+
+
+query GetBooks {
+  books {
+    title
+    author
+  }
+}
