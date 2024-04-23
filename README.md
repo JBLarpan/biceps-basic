@@ -22,3 +22,12 @@ az deployment sub create  --template-file raw-resource-grp.bicep --parameters pa
 create APIM instance 
 
 az deployment group  create --template-file template.bicep --parameter parameters.json --resource-group  Test-resorce-grp --location eastus
+
+
+install graph ql 
+
+create VM. (Standard B2ats v2 (2 vcpus, 1 GiB memory) )
+Open port 4000	
+install graphql,node and appolo server from following link 
+
+https://www.apollographql.com/docs/apollo-server/getting-started/
