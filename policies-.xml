@@ -1,0 +1,78 @@
+<choose>
+<!-- Check if the 'Subscription-Key' header is missing -->
+<when condition="@(context.Request.Headers.ContainsKey("Ocp-Apim-Subscription-Key") == false)">
+<!-- If the header is missing, return a 401 Unauthorized response -->
+<return-response>
+<set-status code="401" reason="Unauthorized" />
+<set-header name="WWW-Authenticate" exists-action="override">
+<value>Bearer error="invalid_token"</value>
+</set-header>
+<set-body>You are unauthorized. Subscription key needs to be supplied.</set-body>
+</return-response>
+</when>
+</choose>
+
+
+<choose>
+            <!--When on-error is defined, its error handling overrides validate-jwt's error message. Its failed-validation-error-message will
+            never become effective. In order to provide specific error handling, we can specifically reference the validate-jwt elements (via Source),
+            then handle the error here along with any other error-handling.-->
+            <when condition="@(context.LastError.Source == "validate-jwt")">
+                <return-response>
+                    <set-status code="@(context.Response.StatusCode" />
+                    <set-body>Unauthorized. Access token is missing or invalid.</set-body>
+                </return-response>
+            </when>
+ </choose>
+ 
+ 
+ 
+ <choose>
+  <when condition="@((bool)((IResponse)context.Variables["tokenstate"]).Body.As<JObject>()["active"] == false)">
+    <return-response response-variable-name="existing response variable">
+      <set-status code="401" reason="Unauthorized" />
+      <set-header name="WWW-Authenticate" exists-action="override">
+        <value>Bearer error="invalid_token"</value>
+      </set-header>
+    </return-response>
+  </when>
+</choose>
+
+
+<when condition="@(context.Request.Headers.GetValueOrDefault(headerName:"Ocp-Apim-Subscription-Key", defaultValue: "not supplied") == "not supplied")">                <!-- If the header is missing, return a 401 Unauthorized response -->
+
+
+-------------working policy---------------------------
+------where id is not supplied then throwing error---------
+policies>
+    <inbound>
+        <base />
+        <validate-parameters specified-parameter-action="prevent" unspecified-parameter-action="ignore">
+            <headers specified-parameter-action="detect" unspecified-parameter-action="ignore">
+                <parameter name="Content-Type" action="detect" />
+                <parameter name="Ocp-Apim-Subscription-Key" action="detect" />
+            </headers>
+        </validate-parameters>
+        <choose>
+            <!-- Check if the 'Subscription-Key' header is missing -->
+            <when condition="@(context.Request.Headers.GetValueOrDefault(headerName:"id", defaultValue: "not supplied") == "not supplied")">
+                <return-response>
+                    <set-status code="589" reason="Unauthorized" />
+                    <set-header name="WWW-Authenticate" exists-action="override">
+                        <value>Bearer error="idsupplied"</value>
+                    </set-header>
+                    <set-body>You are unauthorized. Id needs to be supplied.</set-body>
+                </return-response>
+            </when>
+        </choose>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>
