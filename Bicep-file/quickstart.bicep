@@ -29,7 +29,7 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2023-09-01' = {
   }
 }
 
-resource examplestorage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
+resource examplestorage 'Microsoft.Storage/storageAccounts@' = {
   name: 'bicepquickstartvnet'
   location: location
   sku: {
