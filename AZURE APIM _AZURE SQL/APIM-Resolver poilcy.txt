@@ -1,0 +1,16 @@
+<!--
+    IMPORTANT:
+    - Policy elements can appear only within the <sql-data-source> section element.
+    - To add a policy, place the cursor at the desired insertion point and start typing the new policy statement.
+    - To remove a policy, delete the corresponding policy statement from the policy document.
+    - Policies are applied in the order of their appearance, from the top down.
+    - Comments within policy elements are not supported and may disappear. Place your comments between policy elements or at a higher level scope.
+-->
+<sql-data-source>
+	<connection-info>
+		<connection-string>Server=tcp:yqylefucee5n6.database.windows.net,1433;Initial Catalog=book;Persist Security Info=False;User ID=arpan;Password=Pa$word#34;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;</connection-string>
+	</connection-info>
+	<request>
+		<sql-statement> SELECT id,name,age FROM [dbo].[User] </sql-statement>
+	</request>
+</sql-data-source>

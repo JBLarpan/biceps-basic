@@ -1,0 +1,18 @@
+// 1
+datasource db {
+  provider = "sqlserver"
+  url = "sqlserver://yqylefucee5n6.database.windows.net:1433;database=book;user=arpan;password=Pa$word#34;encrypt=true"
+}
+ 
+// 2
+generator client {
+  provider = "prisma-client-js"
+}
+ 
+// 3
+model Link {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  description String
+  url         String
+}
