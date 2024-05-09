@@ -1,0 +1,83 @@
+ssh arpan@simplelinuxvm-byv5axxq3c4c4.eastus.cloudapp.azure.com
+
+--------------------install nodejs
+
+# installs NVM (Node Version Manager)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+# download and install Node.js
+nvm install 22
+
+# verifies the right Node.js version is in the environment
+node -v # should print `v22.1.0`
+
+# verifies the right NPM version is in the environment
+npm -v # should print `10.7.0`
+
+mkdir graphql
+
+cd graphql
+
+
+------------------------------creating nodejs and typescript project 
+
+#below creates a new directory called hackernews-node-ts and initializes it with a package.json file.
+
+mkdir hackernews-node-ts
+cd hackernews-node-ts
+npm init -y
+
+#below  will add the dependencies to your project under the node_modules folder, and update the package.json.
+
+npm i -D --save-exact typescript@5.1.6 @types/node@18.16.16 ts-node@10.9.1 ts-node-dev@2.0.0 cross-env@7.0.3
+
+#create tsc.config file 
+
+npx tsc --init
+
+
+
+---------linux command to replace below string in file called package.json
+
+sudo snap install jq
+
+cat package.json | jq '.scripts |= {"dev": "cross-env NODE_ENV=development ts-node-dev --exit-child --respawn src/main.ts", "start": "ts-node src/main.ts"}' > temp.json && mv temp.json package.json
+
+
+------------Now create the root entry point for your project, by creating a file under src/main.ts
+mkdir -p src
+
+echo "console.log('Hello World!')" > src/main.ts
+
+
+-- run the server in watch mode 
+
+npm run dev .. it should print hello world 
+
+
+------------------example graphql implementation----------------------------------------------------	
+
+-- learning purpose install graphql is the GraphQL engine implementation.
+----graphql-yoga is the GraphQL Yoga package, for now we will use it to construct out GraphQL schema
+
+npm i graphql@16.6.0 graphql-yoga@5.x.x
+
+--create schema.ts and add line
+
+echo 'const typeDefinitions = /* GraphQL */ `type Query { hello: String! }`' > src/schema.ts
+
+
+
+
+https://the-guild.dev/graphql/yoga-server/tutorial/basic/07-connecting-server-and-database
+
+
+then follow the same in the doc - create schema,resolver etc... https://the-guild.dev/graphql/yoga-server/tutorial/basic/05-a-simple-mutation
+
+then come and install prisma - which will help you to talk to the data source - azure sql, sqllite anything. 
+
+when you area implementing it in the graphql server that time prisma or similar tool is required which will connect dat source and the retrive or manipulate the data,
+
+so, it is something which need to be implemented in azure apim , cause when ever you do a call the resolver executes through prisma like tool in the server it self. 
+
+Lets say you donot have the graphql server but have the schema, then the query value need to be resolved some where, azure apim has the option you can write the thing there. 
